@@ -29,3 +29,29 @@ def overdue_rate(df: pd.DataFrame) -> float:
 		float: Overdue rate.
 	"""
 	return float((df["overdue_days"] > 0).mean())
+
+def loans_by_genre(df: pd.DataFrame) -> pd.Series:
+	"""
+	Sorts the dataframe by genre and counts the number of loans per genre.
+	"""
+
+	return (
+		df.groupby("genre", dropna=False)["loan_id"]
+		.nunique()
+		.sort_values(ascending=False)
+		.reset_index(name="loans")
+	)
+
+def loans_by_branch(df: pd.DataFrame) -> pd.Series:
+	"""
+	Sorts the dataframe by branch and counts the number of loans per branch.
+	"""
+
+	return (
+		df.groupby("branch", dropna=False)["loan_id"]
+		.nunique()
+		.sort_values(ascending=False)
+		.reset_index(name="loans")
+	)
+
+
