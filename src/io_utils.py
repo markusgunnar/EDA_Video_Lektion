@@ -4,7 +4,7 @@ REQUIRED = [
 	"loan_id", "checkout_date", "branch", "genre", "item_type", "patron_age_group", "loan_days", "returned_date", "overdue_days", "fine_amount"
 ]
 
-def load_data(path: str) -> pd.DataFrame:
+def load_data(_path: str) -> pd.DataFrame:
 	"""
 	Load library loans data from a CSV file into a dataframe.
 	Args:
@@ -12,7 +12,7 @@ def load_data(path: str) -> pd.DataFrame:
 	Returns:
 		pd.DataFrame: DataFrame containing the library loans data.
 	"""
-	df = pd.read_csv(path, parse_dates=["checkout_date", "returned_date"])
+	df = pd.read_csv(_path, parse_dates=["checkout_date", "returned_date"])
 	missing = [req for req in REQUIRED if req not in df.columns]
 
 	if missing:
@@ -20,7 +20,7 @@ def load_data(path: str) -> pd.DataFrame:
 	
 	return df
 
-def coerce_numeric(df: pd.DataFrame) -> pd.DataFrame:
+def coerce_numeric(_df: pd.DataFrame) -> pd.DataFrame:
 	"""
 	Ensures that numeric columns actually are numeric types.
 	Args:
@@ -28,7 +28,7 @@ def coerce_numeric(df: pd.DataFrame) -> pd.DataFrame:
 	Returns:
 		pd.DataFrame: DataFrame with coerced numeric columns.
 	"""
-	coerced_df = df.copy()
+	coerced_df = _df.copy()
 	for col in ["loan_days", "overdue_days", "fine_amount"]:
 		coerced_df[col] = pd.to_numeric(coerced_df[col], errors="coerce")
 
