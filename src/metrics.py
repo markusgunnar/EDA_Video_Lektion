@@ -32,6 +32,7 @@ def overdue_rate(df: pd.DataFrame) -> float:
 
 def loans_by_genre(df: pd.DataFrame) -> pd.Series:
 	"""
+	What is loaned the most?
 	Sorts the dataframe by genre and counts the number of loans per genre.
 	"""
 
@@ -44,6 +45,7 @@ def loans_by_genre(df: pd.DataFrame) -> pd.Series:
 
 def loans_by_branch(df: pd.DataFrame) -> pd.Series:
 	"""
+	Where are the most loans made?
 	Sorts the dataframe by branch and counts the number of loans per branch.
 	"""
 
@@ -54,4 +56,20 @@ def loans_by_branch(df: pd.DataFrame) -> pd.Series:
 		.reset_index(name="loans")
 	)
 
+def loans_over_time(df: pd.DataFrame, freq: str="M") -> pd.Series:
+	"""
+	When are the loans made?
+	Groups the dataframe by month and counts the number of loans per month.
+	"""
+
+	ts = (
+		df.set_index("checkout_date")
+		.sort_index()
+		.resample(freq)["loan_id"]
+		.nunique()
+		.rename("loans")
+		.reset_index()
+	)
+
+	return ts
 
