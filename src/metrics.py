@@ -73,3 +73,16 @@ def loans_over_time(_df: pd.DataFrame, _freq: str="M") -> pd.Series:
 
 	return ts
 
+def top3_genres(_pd: pd.DataFrame) -> pd.DataFrame:
+	"""
+	Returns the top 3 genres with the most loans.
+	"""
+	return loans_by_genre(_pd).head(3)
+
+def top3_branches(_pd: pd.DataFrame) -> pd.DataFrame:
+	"""
+	Returns the top 3 branches with the most loans.
+	"""
+	return loans_by_branch(_pd).head(3)
+
+
